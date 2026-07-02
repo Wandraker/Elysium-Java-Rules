@@ -728,6 +728,7 @@ h1 span {
     }
 
     const routeAliases = {
+      "elysium": "home",
       "rules": "home",
       "java-rules": "java",
       "bedrock-rules": "bedrock",
@@ -739,7 +740,7 @@ h1 span {
     };
 
     const routeHashes = {
-      "home": "rules",
+      "home": "elysium",
       "java": "java-rules",
       "bedrock": "bedrock-rules",
       "chat": "chat-rules"
@@ -766,6 +767,12 @@ h1 span {
 
     function fromHash() {
       const hash = location.hash.replace("#", "").toLowerCase();
+
+      if (hash === "rules") {
+        history.replaceState(null, "", "#elysium");
+        return "home";
+      }
+
       return normalizeRoute(hash);
     }
 
