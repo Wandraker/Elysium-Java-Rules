@@ -20,13 +20,6 @@ https://site.elysiumjava.ru/
 
 В будущем сайт может быть расширен: главная страница проекта, онлайн-карта, информация о подключении, новости, ссылки на сообщество и другие разделы.
 
-## Быстрые ссылки
-
-- Главная: https://site.elysiumjava.ru/#elysium
-- Java правила: https://site.elysiumjava.ru/#java-rules
-- Bedrock правила: https://site.elysiumjava.ru/#bedrock-rules
-- Telegram / Discord правила: https://site.elysiumjava.ru/#chat-rules
-
 ## Elysium Java
 
 Раздел Java-направления проекта.
