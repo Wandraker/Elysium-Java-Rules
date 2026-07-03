@@ -8,7 +8,7 @@
 
 Официальная страница:
 
-[https://wandraker.github.io/Elysium-Minecraft/](https://site.elysiumjava.ru/)
+https://site.elysiumjava.ru/
 
 ## Разделы сайта
 
@@ -22,10 +22,10 @@
 
 ## Быстрые ссылки
 
-- Главная: [https://wandraker.github.io/Elysium-Minecraft/](https://site.elysiumjava.ru/#elysium)
-- Java правила: [https://wandraker.github.io/Elysium-Minecraft/](https://site.elysiumjava.ru/#java-rules)
-- Bedrock правила: [https://wandraker.github.io/Elysium-Minecraft/](https://site.elysiumjava.ru/#bedrock-rules)
-- Telegram / Discord правила: [https://wandraker.github.io/Elysium-Minecraft/](https://site.elysiumjava.ru/#chat-rules)
+- Главная: https://site.elysiumjava.ru/#elysium
+- Java правила: https://site.elysiumjava.ru/#java-rules
+- Bedrock правила: https://site.elysiumjava.ru/#bedrock-rules
+- Telegram / Discord правила: https://site.elysiumjava.ru/#chat-rules
 
 ## Elysium Java
 
