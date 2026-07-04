@@ -551,6 +551,73 @@ h1 span {
 
 .footer b { color: white; }
 
+
+.social-dock {
+  margin: 22px auto 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.075);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 18px 50px rgba(0,0,0,.28);
+}
+
+.social-label {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 750;
+  padding: 0 4px 0 2px;
+}
+
+.social-link {
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: white;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
+  transition: .22s ease;
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+
+.social-link svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.social-link.telegram {
+  background: linear-gradient(135deg, #2aabee, #229ed9);
+}
+
+.social-link.discord {
+  background: linear-gradient(135deg, #5865f2, #805dff);
+}
+
+.social-link:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(255,255,255,.34);
+}
+
+@media (max-width: 900px) {
+  .social-dock {
+    border-radius: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .social-label {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 @media (max-width: 900px) {
   .choice-grid,
   .page-hero,
@@ -800,6 +867,21 @@ h1 span {
                 Главная страница проекта Elysium. Здесь собраны правила, способы поддержки
                 и важные ссылки для игроков Java и Bedrock направлений.
               </p>
+
+              <div class="social-dock" aria-label="Социальные сети Elysium">
+                <span class="social-label">Сообщество</span>
+                <a class="social-link telegram" href="https://t.me/elysiummcbe" target="_blank" rel="noopener noreferrer" title="Telegram Elysium" aria-label="Telegram Elysium">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M21.8 4.4c.3-1.3-.8-1.8-1.9-1.4L2.7 9.6c-1.2.5-1.2 1.2-.2 1.5l4.4 1.4 1.7 5.2c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.5.2 1.8-.9l3.2-15.1ZM7.6 12.1l10.1-6.4c.5-.3.9-.1.5.2L9.6 13.7l-.3 3.1-1.7-4.7Z"/>
+                  </svg>
+                </a>
+                <a class="social-link discord" href="https://discord.gg/AFTPbpSN7X" target="_blank" rel="noopener noreferrer" title="Discord Elysium" aria-label="Discord Elysium">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="currentColor" d="M20.3 4.4A16.3 16.3 0 0 0 16.3 3l-.2.4c-.2.4-.4.8-.5 1.1a15.2 15.2 0 0 0-7.2 0c-.2-.4-.3-.8-.6-1.2L7.7 3a16.3 16.3 0 0 0-4 1.4C1.2 8.1.6 11.7.9 15.2a16.5 16.5 0 0 0 5 2.5l.7-1.1.4-.7a10.6 10.6 0 0 1-1.6-.8l.4-.3a11.8 11.8 0 0 0 12.4 0l.4.3a10.6 10.6 0 0 1-1.6.8l.4.7.7 1.1a16.5 16.5 0 0 0 5-2.5c.4-4.1-.7-7.6-2.8-10.8ZM8.6 13.6c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.8 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/>
+                  </svg>
+                </a>
+              </div>
+
 
               <div class="home-grid">
                 <article class="home-card">
