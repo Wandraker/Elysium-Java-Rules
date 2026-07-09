@@ -3,7 +3,7 @@
   Elysium Minecraft Website
   Official project:   Copyright (c) 2026 Elysium / Wandraker.
   All Rights Reserved.
-  Version: 2.0.0
+  Version: 2.1.0
 
   Copying, redistribution, modification, reuse, resale,
   or creating derivative works without permission is prohibited.
@@ -1542,6 +1542,33 @@ html {
   }
 }
 
+  
+/* v0.0.14 one-time intro button */
+#elysiumView .hero-actions.intro-hidden {
+  display: none;
+}
+
+#elysiumView .hero-front.intro-used {
+  min-height: auto;
+  padding-top: 58px;
+  padding-bottom: 30px;
+}
+
+#elysiumView .hero-front.intro-used + .home-grid {
+  margin-top: 18px;
+}
+
+@media (max-width: 700px) {
+  #elysiumView .hero-front.intro-used {
+    padding-top: 42px;
+    padding-bottom: 22px;
+  }
+
+  #elysiumView .hero-front.intro-used + .home-grid {
+    margin-top: 12px;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1960,7 +1987,30 @@ html {
     }
 
 
+
+    function markIntroButtonUsed() {
+      window.__elysiumIntroUsed = true;
+
+      const view = document.querySelector("#elysiumView");
+      if (!view) return;
+
+      view.querySelector(".hero-actions")?.classList.add("intro-hidden");
+      view.querySelector(".hero-front")?.classList.add("intro-used");
+    }
+
+    function applyIntroButtonState() {
+      const view = document.querySelector("#elysiumView");
+      if (!view) return;
+
+      if (window.__elysiumIntroUsed === true) {
+        view.querySelector(".hero-actions")?.classList.add("intro-hidden");
+        view.querySelector(".hero-front")?.classList.add("intro-used");
+      }
+    }
+
     function initHomepageMotion() {
+      applyIntroButtonState();
+
       document.querySelectorAll("[data-scroll-target]").forEach((button) => {
         if (button.dataset.scrollReady === "true") return;
         button.dataset.scrollReady = "true";
@@ -1969,12 +2019,30 @@ html {
           const target = document.querySelector(button.dataset.scrollTarget);
           if (!target) return;
 
+          markIntroButtonUsed();
+
           target.scrollIntoView({
             behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
             block: "start"
           });
         });
       });
+
+
+      const homeGrid = document.querySelector("#elysiumView .home-grid");
+      if (homeGrid && window.__elysiumIntroUsed !== true && "IntersectionObserver" in window) {
+        const introObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            markIntroButtonUsed();
+            introObserver.disconnect();
+          });
+        }, {
+          threshold: 0.18
+        });
+
+        introObserver.observe(homeGrid);
+      }
 
       const items = document.querySelectorAll("#elysiumView .home-card, #elysiumView .team-section, #elysiumView .staff-card");
 
