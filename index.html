@@ -3,7 +3,7 @@
   Elysium Minecraft Website
   Official project:   Copyright (c) 2026 Elysium / Wandraker.
   All Rights Reserved.
-  Version: 1.0.0
+  Version: 0.0.12
 
   Copying, redistribution, modification, reuse, resale,
   or creating derivative works without permission is prohibited.
@@ -1339,6 +1339,160 @@ body::after {
   }
 }
 
+  
+/* v0.0.12 homepage motion update */
+:root {
+  --motion-ease: cubic-bezier(.2,.85,.22,1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#elysiumView .site-inner > h1 {
+  opacity: 0;
+  transform: translateY(18px) scale(.985);
+  animation: hero-rise .72s var(--motion-ease) .04s forwards;
+  will-change: transform, opacity;
+}
+
+#elysiumView .lead {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-rise .72s var(--motion-ease) .14s forwards;
+  will-change: transform, opacity;
+}
+
+#elysiumView .social-dock {
+  opacity: 0;
+  transform: translateY(14px) scale(.98);
+  animation: hero-rise .72s var(--motion-ease) .24s forwards;
+  will-change: transform, opacity;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-rise .72s var(--motion-ease) .34s forwards;
+  will-change: transform, opacity;
+}
+
+.scroll-down-btn {
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,79,163,.22), transparent 42%),
+    radial-gradient(circle at 100% 20%, rgba(128,93,255,.22), transparent 42%),
+    rgba(255,255,255,.08);
+  border-radius: 999px;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 850;
+  letter-spacing: -.2px;
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.24);
+  transition:
+    transform .24s var(--motion-ease),
+    border-color .24s var(--motion-ease),
+    background .24s var(--motion-ease),
+    box-shadow .24s var(--motion-ease);
+}
+
+.scroll-arrow {
+  display: inline-block;
+  transform: translateY(-1px);
+  animation: arrow-bob 1.55s ease-in-out infinite;
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(26px) scale(.985);
+  transition:
+    opacity .7s var(--motion-ease),
+    transform .7s var(--motion-ease);
+  will-change: transform, opacity;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes arrow-bob {
+  0%, 100% {
+    transform: translateY(-1px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scroll-down-btn:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,.34);
+    box-shadow: 0 20px 46px rgba(0,0,0,.32);
+  }
+
+  #elysiumView .home-card:hover,
+  #elysiumView .staff-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,.30);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-actions {
+    margin-top: 18px;
+  }
+
+  .scroll-down-btn {
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+
+  .reveal-item {
+    transform: translateY(18px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  #elysiumView .site-inner > h1,
+  #elysiumView .lead,
+  #elysiumView .social-dock,
+  .hero-actions,
+  .scroll-arrow,
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1444,6 +1598,13 @@ body::after {
                 </a>
               </div>
 
+
+              <div class="hero-actions">
+                <button class="scroll-down-btn" type="button" data-scroll-target=".home-grid" aria-label="Перейти к разделам">
+                  <span>К разделам</span>
+                  <span class="scroll-arrow">↓</span>
+                </button>
+              </div>
 
               <div class="home-grid">
                 <article class="home-card">
@@ -1747,6 +1908,52 @@ body::after {
       });
     }
 
+
+    function initHomepageMotion() {
+      document.querySelectorAll("[data-scroll-target]").forEach((button) => {
+        if (button.dataset.scrollReady === "true") return;
+        button.dataset.scrollReady = "true";
+
+        button.addEventListener("click", () => {
+          const target = document.querySelector(button.dataset.scrollTarget);
+          if (!target) return;
+
+          target.scrollIntoView({
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+            block: "start"
+          });
+        });
+      });
+
+      const items = document.querySelectorAll("#elysiumView .home-card, #elysiumView .team-section, #elysiumView .staff-card");
+
+      if (!items.length) return;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+        items.forEach((item) => item.classList.add("is-visible"));
+        return;
+      }
+
+      items.forEach((item, index) => {
+        item.classList.add("reveal-item");
+        item.style.transitionDelay = `${Math.min(index * 70, 280)}ms`;
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, {
+        threshold: 0.14,
+        rootMargin: "0px 0px -8% 0px"
+      });
+
+      items.forEach((item) => observer.observe(item));
+    }
+
     function render(target, updateHash = true) {
       const key = normalizeRoute(target);
 
@@ -1763,6 +1970,8 @@ body::after {
       document.querySelectorAll("[data-target]").forEach((button) => {
         button.addEventListener("click", () => render(button.dataset.target));
       });
+
+      initHomepageMotion();
 
       if (updateHash) {
         history.pushState(null, "", "#" + routeHashes[key]);
