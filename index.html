@@ -3,7 +3,7 @@
   Elysium Minecraft Website
   Official project:   Copyright (c) 2026 Elysium / Wandraker.
   All Rights Reserved.
-  Version: 2.1.0
+  Version: 2.2.1
 
   Copying, redistribution, modification, reuse, resale,
   or creating derivative works without permission is prohibited.
@@ -1569,6 +1569,259 @@ html {
   }
 }
 
+  
+/* v0.0.15 glitch transition for homepage only */
+#elysiumView .hero-front {
+  position: relative;
+  isolation: isolate;
+}
+
+#elysiumView .hero-front::before,
+#elysiumView .hero-front::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 34px;
+  z-index: -1;
+}
+
+#elysiumView .hero-front.glitching::before {
+  opacity: .95;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,79,163,.22), transparent),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.00) 0px,
+      rgba(255,255,255,.00) 7px,
+      rgba(255,255,255,.11) 8px,
+      rgba(255,255,255,.00) 10px
+    );
+  mix-blend-mode: screen;
+  animation: glitch-scan .62s steps(9, end) forwards;
+}
+
+#elysiumView .hero-front.glitching::after {
+  opacity: .78;
+  background:
+    linear-gradient(90deg, rgba(88,166,255,.16), transparent 28%, rgba(255,79,163,.18) 72%, transparent),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.00) 0px,
+      rgba(255,255,255,.00) 18px,
+      rgba(255,255,255,.07) 19px,
+      rgba(255,255,255,.00) 22px
+    );
+  filter: saturate(1.45);
+  mix-blend-mode: screen;
+  animation: glitch-bands .62s steps(7, end) forwards;
+}
+
+#elysiumView .hero-front.glitching h1 {
+  animation: glitch-title .62s steps(2, end) forwards;
+}
+
+#elysiumView .hero-front.glitching .lead,
+#elysiumView .hero-front.glitching .social-dock,
+#elysiumView .hero-front.glitching .hero-actions {
+  animation: glitch-content .62s steps(2, end) forwards;
+}
+
+#elysiumView .hero-front.glitching .scroll-down-btn {
+  pointer-events: none;
+  filter: saturate(1.7) contrast(1.1);
+}
+
+@keyframes glitch-title {
+  0% {
+    transform: translate(0, 0);
+    text-shadow: none;
+    filter: none;
+  }
+
+  12% {
+    transform: translate(-3px, 1px) skewX(-3deg);
+    text-shadow: 4px 0 rgba(255,79,163,.82), -4px 0 rgba(88,166,255,.72);
+    filter: contrast(1.22);
+  }
+
+  24% {
+    transform: translate(4px, -2px) skewX(2deg);
+    text-shadow: -5px 0 rgba(255,79,163,.70), 5px 0 rgba(88,166,255,.66);
+  }
+
+  38% {
+    transform: translate(-2px, 2px);
+    text-shadow: 7px 0 rgba(255,157,66,.55), -7px 0 rgba(128,93,255,.55);
+  }
+
+  52% {
+    transform: translate(3px, 0);
+    text-shadow: 3px 0 rgba(88,166,255,.7), -3px 0 rgba(255,79,163,.7);
+    filter: hue-rotate(8deg) contrast(1.16);
+  }
+
+  68% {
+    transform: translate(-1px, -1px);
+    text-shadow: -3px 0 rgba(255,79,163,.55), 3px 0 rgba(88,166,255,.55);
+  }
+
+  100% {
+    transform: translate(0, 0);
+    text-shadow: none;
+    filter: none;
+  }
+}
+
+@keyframes glitch-content {
+  0% {
+    transform: translate(0, 0);
+    filter: none;
+  }
+
+  16% {
+    transform: translate(5px, 0);
+    filter: saturate(1.45) contrast(1.1);
+  }
+
+  30% {
+    transform: translate(-4px, 1px);
+  }
+
+  48% {
+    transform: translate(3px, -1px);
+    filter: hue-rotate(-8deg);
+  }
+
+  64% {
+    transform: translate(-2px, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+    filter: none;
+  }
+}
+
+@keyframes glitch-scan {
+  0% {
+    clip-path: inset(0 0 95% 0);
+    transform: translateY(-10px);
+  }
+
+  18% {
+    clip-path: inset(12% 0 72% 0);
+    transform: translate(6px, 0);
+  }
+
+  34% {
+    clip-path: inset(48% 0 38% 0);
+    transform: translate(-8px, 0);
+  }
+
+  52% {
+    clip-path: inset(30% 0 52% 0);
+    transform: translate(4px, 0);
+  }
+
+  74% {
+    clip-path: inset(74% 0 10% 0);
+    transform: translate(-4px, 0);
+  }
+
+  100% {
+    clip-path: inset(100% 0 0 0);
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-bands {
+  0% {
+    clip-path: inset(92% 0 0 0);
+    transform: translateX(0);
+  }
+
+  15% {
+    clip-path: inset(8% 0 78% 0);
+    transform: translateX(-10px);
+  }
+
+  32% {
+    clip-path: inset(38% 0 42% 0);
+    transform: translateX(12px);
+  }
+
+  50% {
+    clip-path: inset(62% 0 20% 0);
+    transform: translateX(-7px);
+  }
+
+  78% {
+    clip-path: inset(18% 0 66% 0);
+    transform: translateX(8px);
+  }
+
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translateX(0);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  #elysiumView .hero-front.glitching::before,
+  #elysiumView .hero-front.glitching::after {
+    inset: -10px;
+    border-radius: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #elysiumView .hero-front.glitching::before,
+  #elysiumView .hero-front.glitching::after,
+  #elysiumView .hero-front.glitching h1,
+  #elysiumView .hero-front.glitching .lead,
+  #elysiumView .hero-front.glitching .social-dock,
+  #elysiumView .hero-front.glitching .hero-actions {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+    text-shadow: none !important;
+  }
+}
+
+  
+/* v2.2.1 intro scroll lock */
+body.homepage-intro-locked {
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+}
+
+#elysiumView.intro-scroll-locked {
+  min-height: calc(100svh - 74px);
+  overflow: hidden;
+}
+
+#elysiumView.intro-scroll-locked .site-hero {
+  min-height: calc(100svh - 74px);
+  overflow: hidden;
+}
+
+#elysiumView.intro-scroll-locked .home-grid,
+#elysiumView.intro-scroll-locked .team-section {
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  #elysiumView.intro-scroll-locked,
+  #elysiumView.intro-scroll-locked .site-hero {
+    min-height: calc(100svh - 64px);
+  }
+}
+
   </style>
 </head>
 <body>
@@ -1988,27 +2241,99 @@ html {
 
 
 
-    function markIntroButtonUsed() {
+
+    function initIntroScrollLock() {
+      if (window.__elysiumIntroScrollLockReady === true) return;
+      window.__elysiumIntroScrollLockReady = true;
+
+      const shouldBlock = () => document.body.classList.contains("homepage-intro-locked");
+
+      const block = (event) => {
+        if (!shouldBlock()) return;
+        event.preventDefault();
+      };
+
+      window.addEventListener("wheel", block, { passive: false });
+      window.addEventListener("touchmove", block, { passive: false });
+
+      window.addEventListener("keydown", (event) => {
+        if (!shouldBlock()) return;
+
+        const blockedKeys = [
+          "ArrowDown",
+          "ArrowUp",
+          "PageDown",
+          "PageUp",
+          "Home",
+          "End",
+          " "
+        ];
+
+        if (blockedKeys.includes(event.key)) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+    }
+
+    function markIntroButtonUsed(options = {}) {
+      const view = document.querySelector("#elysiumView");
+      const hero = view?.querySelector(".hero-front");
+      const actions = view?.querySelector(".hero-actions");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const useGlitch = options.glitch === true && !reducedMotion && hero && window.__elysiumIntroUsed !== true;
+
       window.__elysiumIntroUsed = true;
 
-      const view = document.querySelector("#elysiumView");
-      if (!view) return;
+      const finish = () => {
+        document.body.classList.remove("homepage-intro-locked");
+        view?.classList.remove("intro-scroll-locked");
 
-      view.querySelector(".hero-actions")?.classList.add("intro-hidden");
-      view.querySelector(".hero-front")?.classList.add("intro-used");
+        actions?.classList.add("intro-hidden");
+        hero?.classList.remove("glitching");
+        hero?.classList.add("intro-used");
+
+        if (typeof options.after === "function") {
+          options.after();
+        }
+      };
+
+      if (!view) {
+        finish();
+        return;
+      }
+
+      if (useGlitch) {
+        hero.classList.add("glitching");
+        window.setTimeout(finish, 620);
+        return;
+      }
+
+      finish();
     }
 
     function applyIntroButtonState() {
       const view = document.querySelector("#elysiumView");
-      if (!view) return;
+
+      if (!view) {
+        document.body.classList.remove("homepage-intro-locked");
+        return;
+      }
 
       if (window.__elysiumIntroUsed === true) {
+        document.body.classList.remove("homepage-intro-locked");
+        view.classList.remove("intro-scroll-locked");
         view.querySelector(".hero-actions")?.classList.add("intro-hidden");
         view.querySelector(".hero-front")?.classList.add("intro-used");
+        return;
       }
+
+      document.body.classList.add("homepage-intro-locked");
+      view.classList.add("intro-scroll-locked");
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
 
     function initHomepageMotion() {
+      initIntroScrollLock();
       applyIntroButtonState();
 
       document.querySelectorAll("[data-scroll-target]").forEach((button) => {
@@ -2019,30 +2344,17 @@ html {
           const target = document.querySelector(button.dataset.scrollTarget);
           if (!target) return;
 
-          markIntroButtonUsed();
-
-          target.scrollIntoView({
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-            block: "start"
+          markIntroButtonUsed({
+            glitch: true,
+            after: () => {
+              target.scrollIntoView({
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+                block: "start"
+              });
+            }
           });
         });
       });
-
-
-      const homeGrid = document.querySelector("#elysiumView .home-grid");
-      if (homeGrid && window.__elysiumIntroUsed !== true && "IntersectionObserver" in window) {
-        const introObserver = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            markIntroButtonUsed();
-            introObserver.disconnect();
-          });
-        }, {
-          threshold: 0.18
-        });
-
-        introObserver.observe(homeGrid);
-      }
 
       const items = document.querySelectorAll("#elysiumView .home-card, #elysiumView .team-section, #elysiumView .staff-card");
 
