@@ -3,7 +3,7 @@
   Elysium Minecraft Website
   Official project:   Copyright (c) 2026 Elysium / Wandraker.
   All Rights Reserved.
-  Version: 2.5.0
+  Version: 2.5.1
 
   Copying, redistribution, modification, reuse, resale,
   or creating derivative works without permission is prohibited.
@@ -2585,6 +2585,22 @@ body.ambient-route .cursor-glow {
 @media(max-width:520px){.transfer-head,.transfer-body{padding-left:18px;padding-right:18px}.transfer-box{border-radius:26px}}
 @media(prefers-reduced-motion:reduce){.transfer-screen,.transfer-box,.transfer-line,.transfer-progress span{transition:none!important;animation:none!important}}
 
+  
+/* v2.5.1 low GPU optimization */
+body.low-power-mode .cursor-glow{display:none!important}
+body.low-power-mode #elysiumView .home-grid,body.low-power-mode #startView .start-grid{animation:none!important;background:radial-gradient(circle at 18% 18%,rgba(255,79,163,.08),transparent 38%),radial-gradient(circle at 82% 92%,rgba(88,166,255,.06),transparent 42%)}
+body.low-power-mode #elysiumView .home-grid::before,body.low-power-mode #elysiumView .home-grid::after,body.low-power-mode #startView .start-grid::before,body.low-power-mode #startView .start-grid::after{animation:none!important;will-change:auto!important;opacity:.32!important;filter:blur(34px)!important;transform:translate3d(0,0,0) scale(.92)!important}
+body.low-power-mode #elysiumView .home-card,body.low-power-mode #startView .connect-card,body.low-power-mode #startView .start-note,body.low-power-mode .hero-card,body.low-power-mode .donate-card,body.low-power-mode .choice,body.low-power-mode .rule-card,body.low-power-mode .staff-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.low-power-mode #elysiumView .home-card::before,body.low-power-mode #startView .connect-card::before{opacity:.46!important;mix-blend-mode:normal!important}
+body.low-power-mode #elysiumView .home-card:hover,body.low-power-mode #startView .connect-card:hover{transform:translateY(-1px)!important;box-shadow:0 22px 58px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.14)!important}
+body.low-power-mode .main-btn:not(.secondary):not(.disabled):not(:disabled),body.low-power-mode .choice-btn{animation-duration:9s!important;will-change:background-position!important}
+body.low-power-mode .main-btn::before,body.low-power-mode .main-btn::after{opacity:0!important;animation:none!important}
+body.low-power-mode .transfer-screen{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:radial-gradient(circle at 24% 16%,rgba(255,79,163,.12),transparent 34%),radial-gradient(circle at 76% 84%,rgba(88,166,255,.10),transparent 36%),rgba(3,3,8,.92)!important}
+body.low-power-mode .transfer-box{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.low-power-mode #elysiumView .hero-front.glitching::before,body.low-power-mode #elysiumView .hero-front.glitching::after{filter:none!important;opacity:.42!important}
+body.low-power-mode #elysiumView .hero-front.glitching h1,body.low-power-mode #elysiumView .hero-front.glitching .lead,body.low-power-mode #elysiumView .hero-front.glitching .social-dock,body.low-power-mode #elysiumView .hero-front.glitching .hero-actions{animation-duration:.38s!important}
+@media(max-width:900px),(hover:none),(pointer:coarse){body.low-power-mode #elysiumView .home-grid::before,body.low-power-mode #elysiumView .home-grid::after,body.low-power-mode #startView .start-grid::before,body.low-power-mode #startView .start-grid::after{opacity:.24!important;filter:blur(28px)!important}}
+
   </style>
 </head>
 <body>
@@ -3289,6 +3305,45 @@ body.ambient-route .cursor-glow {
 
 
 
+
+    function initPerformanceMode() {
+      if (window.__elysiumPerformanceReady === true) return;
+      window.__elysiumPerformanceReady = true;
+
+      const params = new URLSearchParams(location.search);
+      if (params.has("fullfx")) {
+        document.body.classList.remove("low-power-mode");
+        return;
+      }
+
+      const forcedLow = params.has("lowfx");
+      const memory = navigator.deviceMemory || 8;
+      const cores = navigator.hardwareConcurrency || 8;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+
+      const getGpuName = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+          if (!gl) return "";
+          const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
+          if (!debugInfo) return "";
+          return String(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || "").toLowerCase();
+        } catch (error) {
+          return "";
+        }
+      };
+
+      const gpu = getGpuName();
+      const weakGpuMarkers = ["radeon hd","radeon r2","radeon r3","radeon r4","radeon r5","intel hd graphics 2000","intel hd graphics 2500","intel hd graphics 3000","intel hd graphics 4000","intel hd graphics 4400","intel hd graphics 4600","mali-400","mali-450","mali-t720","mali-t760","adreno 3","adreno 4","powervr sgx"];
+      const weakGpu = weakGpuMarkers.some((marker) => gpu.includes(marker));
+
+      if (forcedLow || reducedMotion || weakGpu || memory <= 4 || cores <= 4 || coarsePointer) {
+        document.body.classList.add("low-power-mode");
+      }
+    }
+
     function initExternalTransfer() {
       document.querySelectorAll("[data-transfer-node]").forEach((link) => {
         if (link.dataset.transferReady === "true") return;
@@ -3496,6 +3551,7 @@ body.ambient-route .cursor-glow {
     }
 
     function render(target, updateHash = true, options = {}) {
+      initPerformanceMode();
       const key = normalizeRoute(target);
       const now = Date.now();
 
@@ -3562,6 +3618,8 @@ body.ambient-route .cursor-glow {
       const hash = location.hash.replace("#", "").toLowerCase();
       return normalizeRoute(hash || "elysium");
     }
+
+    initPerformanceMode();
 
     window.addEventListener("popstate", () => render(fromHash(), false, { force: true }));
 
