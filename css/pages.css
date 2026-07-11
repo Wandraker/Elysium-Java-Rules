@@ -1,0 +1,501 @@
+@media (min-width: 980px) {
+  #elysiumView .home-grid {
+    grid-template-columns: 1.12fr 1fr 1fr;
+  }
+}
+
+#elysiumView .start-card {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(74,222,128,.20), transparent 42%),
+    radial-gradient(circle at 100% 20%, rgba(88,166,255,.16), transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.045));
+}
+
+.start-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.connect-card {
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,255,255,.10), transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  padding: 26px;
+  overflow: hidden;
+}
+
+.connect-card.java {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(74,222,128,.18), transparent 42%),
+    radial-gradient(circle at 100% 10%, rgba(88,166,255,.14), transparent 44%),
+    linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.045));
+}
+
+.connect-card.bedrock {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,157,66,.16), transparent 42%),
+    radial-gradient(circle at 100% 10%, rgba(255,79,163,.12), transparent 44%),
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+}
+
+.connect-card .icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  background: rgba(255,255,255,.13);
+  border: 1px solid var(--line);
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+
+.connect-card h2 {
+  margin: 0 0 10px;
+  font-size: 32px;
+  letter-spacing: -.8px;
+}
+
+.connect-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.server-box {
+  margin: 18px 0;
+  display: grid;
+  gap: 10px;
+}
+
+.server-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.22);
+  border-radius: 18px;
+  padding: 13px 14px;
+}
+
+.server-line span {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.server-line code {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+  word-break: break-all;
+}
+
+.server-line .masked {
+  color: rgba(255,255,255,.55);
+  letter-spacing: 3px;
+}
+
+.steps {
+  margin: 18px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.steps li::marker {
+  color: var(--pink);
+  font-weight: 900;
+}
+
+.start-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.main-btn.disabled,
+.main-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: saturate(.6);
+}
+
+.start-note {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: rgba(255,255,255,.075);
+  padding: 20px;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.start-note b {
+  color: #fff;
+}
+
+.copy-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(18px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(15,18,28,.86);
+  color: #fff;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 45px rgba(0,0,0,.36);
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 850;
+  transition: .24s ease;
+}
+
+.copy-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 900px) {
+  .start-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .connect-card {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .server-line {
+    display: block;
+  }
+
+  .server-line code {
+    display: block;
+    margin-top: 6px;
+  }
+
+  .start-actions {
+    display: grid;
+  }
+
+  .start-actions .main-btn {
+    width: 100%;
+  }
+}
+
+  
+
+#elysiumView .home-grid,
+#startView .start-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+#elysiumView .home-grid::before,
+#elysiumView .home-grid::after,
+#startView .start-grid::before,
+#startView .start-grid::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 999px;
+  opacity: .58;
+  filter: blur(58px);
+  will-change: transform;
+}
+
+#elysiumView .home-grid::before,
+#startView .start-grid::before {
+  width: 360px;
+  height: 360px;
+  left: -110px;
+  top: -92px;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,79,163,.42), transparent 58%),
+    radial-gradient(circle at 70% 70%, rgba(128,93,255,.34), transparent 62%);
+  animation: ambient-blob-one 18s ease-in-out infinite alternate;
+}
+
+#elysiumView .home-grid::after,
+#startView .start-grid::after {
+  width: 390px;
+  height: 390px;
+  right: -128px;
+  bottom: -118px;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255,157,66,.34), transparent 56%),
+    radial-gradient(circle at 72% 68%, rgba(88,166,255,.32), transparent 62%);
+  animation: ambient-blob-two 22s ease-in-out infinite alternate;
+}
+
+#elysiumView .home-card,
+#elysiumView .team-section,
+#startView .connect-card,
+#startView .start-note {
+  position: relative;
+  z-index: 1;
+}
+
+#elysiumView .home-card::before,
+#startView .connect-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: .72;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255,255,255,.13), transparent 34%),
+    radial-gradient(circle at 100% 100%, rgba(255,79,163,.08), transparent 38%);
+  mix-blend-mode: screen;
+}
+
+#elysiumView .home-card:hover::before,
+#startView .connect-card:hover::before {
+  opacity: .95;
+}
+
+.main-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.main-btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px -54px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(110deg, transparent 18%, rgba(255,255,255,.44) 45%, transparent 72%);
+  transform: translateX(-120%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .main-btn:hover::after {
+    opacity: .8;
+    animation: button-shine .75s ease forwards;
+  }
+}
+
+.cursor-glow {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 420px;
+  height: 420px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transform: translate3d(calc(var(--glow-x, 50vw) - 50%), calc(var(--glow-y, 50vh) - 50%), 0);
+  background: radial-gradient(circle, rgba(255,79,163,.18) 0%, rgba(88,166,255,.10) 38%, transparent 70%);
+  filter: blur(10px);
+  mix-blend-mode: screen;
+  transition: opacity .28s ease;
+  will-change: transform, opacity;
+}
+
+body.ambient-route .cursor-glow {
+  opacity: .85;
+}
+
+@keyframes ambient-blob-one {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  45% {
+    transform: translate3d(62px, 28px, 0) scale(1.08);
+  }
+
+  100% {
+    transform: translate3d(112px, -18px, 0) scale(.96);
+  }
+}
+
+@keyframes ambient-blob-two {
+  0% {
+    transform: translate3d(0, 0, 0) scale(.98);
+  }
+
+  50% {
+    transform: translate3d(-72px, -34px, 0) scale(1.06);
+  }
+
+  100% {
+    transform: translate3d(-118px, 22px, 0) scale(1.02);
+  }
+}
+
+@keyframes button-shine {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(120%);
+  }
+}
+
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  #elysiumView .home-grid::before,
+  #elysiumView .home-grid::after,
+  #startView .start-grid::before,
+  #startView .start-grid::after {
+    opacity: .34;
+    filter: blur(44px);
+    animation-duration: 30s;
+  }
+
+  .cursor-glow {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  #elysiumView .home-grid::before,
+  #startView .start-grid::before {
+    width: 250px;
+    height: 250px;
+    left: -82px;
+    top: -68px;
+  }
+
+  #elysiumView .home-grid::after,
+  #startView .start-grid::after {
+    width: 270px;
+    height: 270px;
+    right: -92px;
+    bottom: -84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #elysiumView .home-grid::before,
+  #elysiumView .home-grid::after,
+  #startView .start-grid::before,
+  #startView .start-grid::after,
+  .main-btn:hover::after {
+    animation: none !important;
+  }
+
+  .cursor-glow {
+    display: none;
+  }
+}
+
+@keyframes btn-gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.main-btn:not(.secondary):not(.disabled):not(:disabled),
+.choice-btn {
+  background-size: 220% 220% !important;
+  animation: btn-gradient-flow 6.2s ease-in-out infinite;
+  will-change: background-position, transform;
+  text-shadow: 0 1px 10px rgba(0,0,0,.18);
+}
+
+.main-btn:not(.secondary):not(.green):not(.orange):not(.disabled):not(:disabled),
+.choice.java .choice-btn {
+  background-image: linear-gradient(120deg, #ff6ab7 0%, #ff9d42 24%, #805dff 54%, #58a6ff 78%, #ff6ab7 100%) !important;
+}
+
+.main-btn.green {
+  background-image: linear-gradient(120deg, #4cff9b 0%, #58a6ff 30%, #5de2ff 58%, #7b8cff 82%, #4cff9b 100%) !important;
+}
+
+.main-btn.orange,
+.chat .choice-btn {
+  background-image: linear-gradient(120deg, #ff9d42 0%, #ffd36e 22%, #ff6ab7 58%, #ff8a5b 82%, #ff9d42 100%) !important;
+}
+
+.bedrock .choice-btn {
+  background-image: linear-gradient(120deg, #4cff9b 0%, #58a6ff 34%, #7b8cff 60%, #5de2ff 84%, #4cff9b 100%) !important;
+}
+
+.main-btn:not(.secondary):not(.disabled):not(:disabled):hover,
+.choice-btn:hover {
+  filter: saturate(1.12) brightness(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-btn:not(.secondary):not(.disabled):not(:disabled),
+  .choice-btn {
+    animation: none !important;
+    background-position: 50% 50% !important;
+  }
+}
+
+  
+
+.transfer-screen{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:22px;pointer-events:none;opacity:0;background:radial-gradient(circle at 24% 16%,rgba(255,79,163,.18),transparent 36%),radial-gradient(circle at 76% 84%,rgba(88,166,255,.16),transparent 38%),rgba(3,3,8,.78);backdrop-filter:blur(18px);transition:opacity .22s ease}
+.transfer-screen.active{pointer-events:auto;opacity:1}
+.transfer-box{width:min(560px,100%);border:1px solid rgba(255,255,255,.18);border-radius:30px;background:radial-gradient(circle at 18% 0%,rgba(255,255,255,.14),transparent 36%),linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.045));box-shadow:0 30px 90px rgba(0,0,0,.54),inset 0 1px 0 rgba(255,255,255,.16);overflow:hidden;transform:translateY(16px) scale(.98);transition:transform .22s ease}
+.transfer-screen.active .transfer-box{transform:translateY(0) scale(1)}
+.transfer-head{padding:20px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:space-between;gap:14px}
+.transfer-title{display:grid;gap:4px}.transfer-title b{color:#fff;letter-spacing:.12em;font-size:13px}.transfer-title span{color:var(--muted);font-size:13px}
+.transfer-status{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.transfer-status .loader{width:18px;height:18px;border:2px solid rgba(255,255,255,.24);border-top-color:#fff;border-radius:50%;animation:transfer-spin .8s linear infinite}
+.transfer-status.ok{background:rgba(74,222,128,.18);border-color:rgba(74,222,128,.34);color:#8dffbd}
+.transfer-body{padding:20px 22px 22px}.transfer-node{margin-bottom:16px;border:1px solid rgba(255,255,255,.12);border-radius:20px;background:rgba(0,0,0,.22);padding:14px}
+.transfer-node span{display:block;color:var(--muted);font-size:12px;font-weight:850;margin-bottom:6px}.transfer-node code{color:#fff;font-size:15px;font-weight:900;word-break:break-all}
+.transfer-lines{display:grid;gap:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}.transfer-line{color:rgba(255,255,255,.56);opacity:.45;transform:translateX(-6px);transition:.25s ease}.transfer-line.active{color:#fff;opacity:1;transform:translateX(0)}.transfer-line.ok{color:#8dffbd}
+.transfer-progress{margin-top:18px;height:8px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10)}.transfer-progress span{display:block;height:100%;width:0%;border-radius:inherit;background:linear-gradient(90deg,var(--pink),var(--orange),var(--green),var(--blue));background-size:220% 100%;animation:transfer-bar-flow 1.1s linear infinite;transition:width .28s ease}
+.transfer-cancel{margin-top:16px;width:100%;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:11px 14px;color:rgba(255,255,255,.82);background:rgba(255,255,255,.07);font-weight:850}
+@keyframes transfer-spin{to{transform:rotate(360deg)}}@keyframes transfer-bar-flow{to{background-position:220% 0}}
+@media(max-width:520px){.transfer-head,.transfer-body{padding-left:18px;padding-right:18px}.transfer-box{border-radius:26px}}
+@media(prefers-reduced-motion:reduce){.transfer-screen,.transfer-box,.transfer-line,.transfer-progress span{transition:none!important;animation:none!important}}
+
+#elysiumView .home-grid::before,
+#startView .start-grid::before {
+  opacity: .44;
+  filter: blur(64px);
+  animation-duration: 23s;
+}
+
+#elysiumView .home-grid::after,
+#startView .start-grid::after {
+  opacity: .39;
+  filter: blur(66px);
+  animation-duration: 27s;
+}
+
+body.ambient-route .cursor-glow {
+  opacity: .52;
+}
+
+.cursor-glow {
+  width: 350px;
+  height: 350px;
+  background:
+    radial-gradient(circle, rgba(255,79,163,.12) 0%, rgba(88,166,255,.065) 38%, transparent 72%);
+  filter: blur(14px);
+}
+
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
+  #elysiumView .home-grid::before,
+  #elysiumView .home-grid::after,
+  #startView .start-grid::before,
+  #startView .start-grid::after {
+    opacity: .25;
+    filter: blur(46px);
+    animation-duration: 34s;
+  }
+}

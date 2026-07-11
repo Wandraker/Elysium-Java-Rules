@@ -1,0 +1,548 @@
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.topbar {
+  width: 100%;
+  max-width: 100vw;
+  left: 0;
+  right: 0;
+}
+
+.nav {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.team-section {
+  overflow: hidden;
+}
+
+.staff-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.staff-card {
+  align-items: flex-start;
+}
+
+.staff-role {
+  min-height: 34px;
+  line-height: 1.15;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+.staff-info h3 {
+  line-height: 1.08;
+}
+
+@media (max-width: 900px) {
+  .staff-carousel .staff-card {
+    flex: 0 0 calc(100% - 8px);
+  }
+
+  .staff-avatar {
+    flex-basis: 112px;
+    width: 112px;
+    height: 112px;
+  }
+
+  .staff-card {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav {
+    padding: 12px 16px;
+    justify-content: center;
+  }
+
+  .team-section {
+    padding: 22px 14px;
+  }
+
+  .staff-card {
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .staff-avatar {
+    flex-basis: 104px;
+    width: 104px;
+    height: 104px;
+    border-radius: 22px;
+  }
+
+  .staff-info h3 {
+    font-size: 25px;
+  }
+
+  .staff-info p,
+  .staff-quote {
+    font-size: 15px;
+  }
+}
+
+  
+
+#app,
+.view,
+.site-page,
+.site-inner,
+.home-grid,
+.home-card,
+.team-section,
+.staff-grid,
+.staff-card,
+.social-dock {
+  min-width: 0;
+  max-width: 100%;
+}
+
+#elysiumView {
+  width: 100%;
+  overflow-x: clip;
+}
+
+#elysiumView .site-page {
+  width: 100%;
+  overflow-x: clip;
+}
+
+#elysiumView h1 {
+  max-width: 100%;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+#elysiumView .lead {
+  max-width: min(780px, 100%);
+}
+
+.staff-pair-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 16px) / 2);
+  grid-template-columns: none;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.staff-pair-strip::-webkit-scrollbar {
+  height: 7px;
+}
+
+.staff-pair-strip::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+}
+
+.staff-pair-strip::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.22);
+  border-radius: 999px;
+}
+
+.staff-pair-strip .staff-card {
+  width: 100%;
+  min-width: 0;
+  flex: none;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 700px) {
+  #elysiumView .site-page {
+    padding: 44px 18px 64px;
+  }
+
+  #elysiumView .site-hero {
+    min-height: auto;
+    display: block;
+  }
+
+  #elysiumView h1 {
+    font-size: clamp(34px, 10vw, 42px);
+    line-height: 1.02;
+    letter-spacing: -1.4px;
+  }
+
+  #elysiumView .lead {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-top: 18px;
+  }
+
+  #elysiumView .social-dock {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  #elysiumView .home-grid {
+    margin-top: 34px;
+    grid-template-columns: 1fr;
+  }
+
+  #elysiumView .home-card {
+    padding: 24px;
+    min-height: 0;
+  }
+
+  #elysiumView .home-card h2 {
+    font-size: 30px;
+  }
+
+  .team-section {
+    padding: 22px 14px;
+  }
+
+  .team-head h2 {
+    font-size: 30px;
+  }
+
+  .staff-pair-strip {
+    gap: 12px;
+    grid-auto-columns: calc((100% - 12px) / 2);
+  }
+
+  .staff-pair-strip .staff-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    min-height: 0;
+  }
+
+  .staff-avatar {
+    width: 96px;
+    height: 96px;
+    flex: 0 0 96px;
+    border-radius: 22px;
+  }
+
+  .staff-role {
+    min-height: 34px;
+    font-size: 11px;
+    line-height: 1.12;
+    padding: 6px 8px;
+    white-space: normal;
+  }
+
+  .staff-info h3 {
+    font-size: 23px;
+  }
+
+  .staff-info p {
+    font-size: 14px;
+    line-height: 1.42;
+  }
+
+  .staff-quote {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 380px) {
+  #elysiumView .site-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  #elysiumView h1 {
+    font-size: 34px;
+  }
+
+  .staff-avatar {
+    width: 84px;
+    height: 84px;
+    flex-basis: 84px;
+  }
+
+  .staff-info h3 {
+    font-size: 21px;
+  }
+
+  .staff-info p,
+  .staff-quote {
+    font-size: 13px;
+  }
+}
+
+  
+
+.staff-pair-strip .staff-card {
+  height: auto;
+}
+
+@media (max-width: 700px) {
+  .staff-pair-strip {
+    grid-auto-columns: calc((100% - 12px) / 2);
+  }
+}
+
+  
+
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+body::before,
+body::after {
+  pointer-events: none;
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 900px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  body::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    height: 100%;
+    min-height: 100%;
+    transform: none;
+    background-position: center top;
+    background-size: cover;
+  }
+
+  body::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    height: 100%;
+    min-height: 100%;
+    transform: none;
+  }
+
+  .view {
+    animation: none;
+  }
+}
+
+  
+
+:root {
+  --motion-ease: cubic-bezier(.2,.85,.22,1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#elysiumView .site-inner > h1 {
+  opacity: 0;
+  transform: translateY(18px) scale(.985);
+  animation: hero-rise .72s var(--motion-ease) .04s forwards;
+  will-change: transform, opacity;
+}
+
+#elysiumView .lead {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-rise .72s var(--motion-ease) .14s forwards;
+  will-change: transform, opacity;
+}
+
+#elysiumView .social-dock {
+  opacity: 0;
+  transform: translateY(14px) scale(.98);
+  animation: hero-rise .72s var(--motion-ease) .24s forwards;
+  will-change: transform, opacity;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-rise .72s var(--motion-ease) .34s forwards;
+  will-change: transform, opacity;
+}
+
+.scroll-down-btn {
+  border: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255,79,163,.22), transparent 42%),
+    radial-gradient(circle at 100% 20%, rgba(128,93,255,.22), transparent 42%),
+    rgba(255,255,255,.08);
+  border-radius: 999px;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 850;
+  letter-spacing: -.2px;
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 14px 34px rgba(0,0,0,.24);
+  transition:
+    transform .24s var(--motion-ease),
+    border-color .24s var(--motion-ease),
+    background .24s var(--motion-ease),
+    box-shadow .24s var(--motion-ease);
+}
+
+.scroll-arrow {
+  display: inline-block;
+  transform: translateY(-1px);
+  animation: arrow-bob 1.55s ease-in-out infinite;
+}
+
+.reveal-item {
+  opacity: 0;
+  transform: translateY(26px) scale(.985);
+  transition:
+    opacity .7s var(--motion-ease),
+    transform .7s var(--motion-ease);
+  will-change: transform, opacity;
+}
+
+.reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes arrow-bob {
+  0%, 100% {
+    transform: translateY(-1px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scroll-down-btn:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,.34);
+    box-shadow: 0 20px 46px rgba(0,0,0,.32);
+  }
+
+  #elysiumView .home-card:hover,
+  #elysiumView .staff-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,.30);
+  }
+}
+
+@media (max-width: 700px) {
+  .hero-actions {
+    margin-top: 18px;
+  }
+
+  .scroll-down-btn {
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+
+  .reveal-item {
+    transform: translateY(18px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  #elysiumView .site-inner > h1,
+  #elysiumView .lead,
+  #elysiumView .social-dock,
+  .hero-actions,
+  .scroll-arrow,
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+  
+
+#elysiumView .site-hero {
+  display: block;
+  align-items: initial;
+}
+
+#elysiumView .hero-front {
+  min-height: calc(100svh - 170px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 34px 0 46px;
+}
+
+#elysiumView .home-grid {
+  scroll-margin-top: 98px;
+  margin-top: 0;
+}
+
+#elysiumView .team-section {
+  margin-top: 28px;
+}
+
+@media (min-width: 901px) {
+  #elysiumView .hero-front {
+    min-height: calc(100svh - 150px);
+  }
+}
+
+@media (max-width: 700px) {
+  #elysiumView .hero-front {
+    min-height: calc(100svh - 132px);
+    padding: 28px 0 38px;
+  }
+
+  #elysiumView .home-grid {
+    scroll-margin-top: 78px;
+  }
+}
+
+@media (max-height: 680px) {
+  #elysiumView .hero-front {
+    min-height: 520px;
+  }
+}
