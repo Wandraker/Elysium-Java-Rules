@@ -70,6 +70,7 @@ function initializeView(route) {
   initAccountExperience();
   initShieldVerification();
   window.ELYSIUM_RUNTIME?.applyServerStatus();
+  window.ELYSIUM_MOTION_UI?.initRoute(route);
 }
 
 function render(target, updateHash = true, options = {}) {

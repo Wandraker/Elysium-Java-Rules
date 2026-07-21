@@ -48,9 +48,12 @@
     };
     const [className, label] = states[state] || states.UNKNOWN;
     document.querySelectorAll("[data-server-status]").forEach((node) => {
+      const changed = node.dataset.serverState !== state;
       node.className = className;
+      node.dataset.serverState = state;
       const labelNode = node.querySelector("span");
       if (labelNode) labelNode.textContent = label;
+      if (changed) window.ELYSIUM_MOTION_UI?.pulseStatus(node);
     });
     document.querySelectorAll("[data-server-signal]").forEach((node) => {
       node.className = "console-signal " + className;

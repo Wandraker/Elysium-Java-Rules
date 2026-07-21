@@ -292,10 +292,12 @@ function createActivityItem(event) {
 }
 
 function showAccountState(name) {
+  const states = { loading: "accountLoading", guest: "accountGuest", dashboard: "accountDashboard" };
   for (const id of ["accountLoading", "accountGuest", "accountDashboard"]) {
     const element = document.getElementById(id);
-    if (element) element.hidden = id !== ({ loading: "accountLoading", guest: "accountGuest", dashboard: "accountDashboard" }[name]);
+    if (element) element.hidden = id !== states[name];
   }
+  window.ELYSIUM_MOTION_UI?.animatePanel(document.getElementById(states[name]));
 }
 
 function activateAccountTab(tab) {
@@ -308,6 +310,7 @@ function activateAccountTab(tab) {
     const active = panel.dataset.accountPanel === selected;
     panel.classList.toggle("active", active);
     panel.hidden = !active;
+    if (active) window.ELYSIUM_MOTION_UI?.animatePanel(panel);
   });
   if (selected === "support" || selected === "appeals") loadConversations().catch(showAccountError);
   if (selected === "sessions") loadSessions().catch(showAccountError);

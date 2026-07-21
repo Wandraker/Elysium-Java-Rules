@@ -1,3 +1,150 @@
+const elysiumMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+function canUseElysiumMotion() {
+  return Boolean(window.ELYSIUM_MOTION?.animate) && !elysiumMotionMedia.matches;
+}
+
+function clearMotionStyles(element, properties = ["opacity", "transform", "filter", "will-change"]) {
+  properties.forEach((property) => element.style.removeProperty(property));
+}
+
+function playElysiumMotion(element, keyframes, options = {}, cleanup = true) {
+  if (!element || element.hidden || !canUseElysiumMotion()) {
+    if (element) clearMotionStyles(element);
+    return null;
+  }
+
+  element.style.willChange = Object.keys(keyframes).join(", ");
+  const controls = window.ELYSIUM_MOTION.animate(element, keyframes, options);
+  if (cleanup) {
+    Promise.resolve(controls.finished)
+      .catch(() => {})
+      .finally(() => clearMotionStyles(element));
+  }
+  return controls;
+}
+
+function revealWithMotion(element, index = 0, distance = 16) {
+  if (!element || element.dataset.motionVisible === "true") return;
+  element.dataset.motionVisible = "true";
+  playElysiumMotion(element, {
+    opacity: [0, 1],
+    transform: [`translate3d(0, ${distance}px, 0) scale(.985)`, "translate3d(0, 0, 0) scale(1)"]
+  }, {
+    duration: 0.48,
+    delay: Math.min(index, 8) * 0.055,
+    ease: "ease-out"
+  });
+}
+
+function animateMotionList(container) {
+  if (!container || !canUseElysiumMotion()) return;
+  const items = Array.from(container.children).filter((item) => !item.hidden).slice(0, 12);
+  items.forEach((item, index) => {
+    delete item.dataset.motionVisible;
+    revealWithMotion(item, index, 10);
+  });
+}
+
+function animateMotionPanel(panel) {
+  if (!panel || panel.hidden || !canUseElysiumMotion()) return;
+  playElysiumMotion(panel, {
+    opacity: [0, 1],
+    transform: ["translate3d(0, 8px, 0)", "translate3d(0, 0, 0)"]
+  }, { duration: 0.3, ease: "ease-out" });
+
+  const cards = panel.querySelectorAll(".account-summary-grid > article, .account-dashboard-grid > *, .account-two-column > *, .account-v2-panel, .account-accounts-panel, .account-link-panel");
+  Array.from(cards).slice(0, 8).forEach((card, index) => {
+    playElysiumMotion(card, {
+      opacity: [0, 1],
+      transform: ["translate3d(0, 10px, 0) scale(.99)", "translate3d(0, 0, 0) scale(1)"]
+    }, { duration: 0.34, delay: index * 0.045, ease: "ease-out" });
+  });
+}
+
+function pulseMotionStatus(element) {
+  if (!element || !canUseElysiumMotion()) return;
+  playElysiumMotion(element, {
+    opacity: [0.55, 1],
+    transform: ["translate3d(0, 2px, 0) scale(.97)", "translate3d(0, 0, 0) scale(1)"],
+    filter: ["brightness(1.35)", "brightness(1)"]
+  }, { duration: 0.34, ease: "ease-out" });
+}
+
+function initDynamicMotion(view) {
+  window.__elysiumMotionObserver?.disconnect();
+  if (!view || !canUseElysiumMotion() || !("MutationObserver" in window)) return;
+
+  const selectors = [
+    ".account-activity-item",
+    ".minecraft-account-card",
+    ".account-conversation-button",
+    ".account-decision-card",
+    ".account-session-card",
+    ".account-message",
+    ".account-notice:not([hidden])"
+  ].join(",");
+
+  window.__elysiumMotionObserver = new MutationObserver((records) => {
+    const added = [];
+    records.forEach((record) => record.addedNodes.forEach((node) => {
+      if (!(node instanceof Element)) return;
+      if (node.matches(selectors)) added.push(node);
+      node.querySelectorAll?.(selectors).forEach((item) => added.push(item));
+    }));
+    added.slice(0, 12).forEach((item, index) => revealWithMotion(item, index, 9));
+  });
+  window.__elysiumMotionObserver.observe(view, { childList: true, subtree: true });
+}
+
+function initRouteMotion(route) {
+  const view = document.querySelector("#app > .view");
+  if (!view) return;
+  if (!canUseElysiumMotion()) {
+    document.documentElement.classList.remove("motion-enhanced");
+    return;
+  }
+
+  document.documentElement.classList.add("motion-enhanced");
+  playElysiumMotion(view, {
+    opacity: [0, 1],
+    transform: ["translate3d(0, 7px, 0)", "translate3d(0, 0, 0)"]
+  }, { duration: 0.34, ease: "ease-out" });
+
+  const routeElements = route === "elysium"
+    ? [".hero-kicker", ".hero-front h1", ".hero-front .lead", ".hero-primary-actions", ".social-dock"]
+    : [".back-btn", ".page-hero > *", ".rules-page > h1", ".rules-page > p", ".account-heading", ".shield-badge", ".shield-kicker", ".shield-shell > h1", ".shield-lead", ".shield-account-hint", ".shield-panel"];
+
+  routeElements
+    .flatMap((selector) => Array.from(view.querySelectorAll(selector)))
+    .filter((element) => !element.hidden)
+    .slice(0, 10)
+    .forEach((element, index) => revealWithMotion(element, index, 14));
+
+  const consoleCard = view.querySelector(".hero-console");
+  if (consoleCard) {
+    playElysiumMotion(consoleCard, {
+      opacity: [0, 1],
+      transform: ["translate3d(24px, 0, 0) scale(.975)", "translate3d(0, 0, 0) scale(1)"]
+    }, { duration: 0.58, delay: 0.12, ease: "ease-out" });
+  }
+
+  initDynamicMotion(view);
+}
+
+function initMotionPressResponse() {
+  if (document.documentElement.dataset.motionPressReady) return;
+  document.documentElement.dataset.motionPressReady = "true";
+  document.addEventListener("click", (event) => {
+    if (!canUseElysiumMotion()) return;
+    const button = event.target.closest("button, .main-btn, .choice-btn, .social-link");
+    if (!button || button.disabled || button.closest(".nav-links") || button.hasAttribute("data-target")) return;
+    playElysiumMotion(button, {
+      transform: ["scale(1)", "scale(.965)", "scale(1)"]
+    }, { duration: 0.22, ease: "ease-out" });
+  });
+}
+
 function initStaffCarousel() {
   document.querySelectorAll(".staff-carousel").forEach((carousel) => {
     if (carousel.dataset.dragReady) return;
@@ -33,6 +180,7 @@ function initStaffCarousel() {
 function initHomepageMotion() {
   initStaffCarousel();
   initCardResponse();
+  initMotionPressResponse();
 
   document.querySelectorAll("[data-scroll-target]").forEach((button) => {
     if (button.dataset.scrollReady) return;
@@ -50,7 +198,7 @@ function initHomepageMotion() {
   const elements = document.querySelectorAll(".home-card, .staff-card, .team-section, .choice, .connect-card, .donate-card, .rule-card");
   if (!elements.length) return;
 
-  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (!("IntersectionObserver" in window) || elysiumMotionMedia.matches) {
     elements.forEach((element) => element.classList.add("is-visible"));
     return;
   }
@@ -58,13 +206,15 @@ function initHomepageMotion() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
-      entry.target.classList.add("is-visible");
+      if (canUseElysiumMotion()) revealWithMotion(entry.target, Number(entry.target.dataset.motionOrder || 0));
+      else entry.target.classList.add("is-visible");
       observer.unobserve(entry.target);
     });
   }, { threshold: 0.08, rootMargin: "0px 0px -36px 0px" });
 
-  elements.forEach((element) => {
-    element.classList.add("reveal-item");
+  elements.forEach((element, index) => {
+    element.dataset.motionOrder = String(index % 3);
+    if (!canUseElysiumMotion()) element.classList.add("reveal-item");
     observer.observe(element);
   });
 }
@@ -216,3 +366,10 @@ function showCopyToast(text) {
   clearTimeout(window.__elysiumCopyToastTimer);
   window.__elysiumCopyToastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
 }
+
+window.ELYSIUM_MOTION_UI = Object.freeze({
+  initRoute: initRouteMotion,
+  animatePanel: animateMotionPanel,
+  animateList: animateMotionList,
+  pulseStatus: pulseMotionStatus
+});

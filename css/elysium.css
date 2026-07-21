@@ -169,6 +169,7 @@ img, svg { display: block; max-width: 100%; }
 #app { min-height: calc(100vh - var(--topbar-height)); }
 .view { min-height: calc(100vh - var(--topbar-height)); animation: view-in .28s ease both; }
 @keyframes view-in { from { opacity: 0; transform: translateY(5px); } }
+html.motion-enhanced .view, html.motion-enhanced .account-tab-panel { animation: none; }
 
 .site-page, .rules-page, .account-page, .shield-page { position: relative; padding: 54px 0 72px; }
 .site-inner, .rules-page, .account-shell, .shield-shell, .home-inner { width: var(--content); margin: 0 auto; }
