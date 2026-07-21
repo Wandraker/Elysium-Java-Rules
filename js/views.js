@@ -358,7 +358,7 @@
 
             <section class="page-hero">
               <div>
-                <div class="badge">${glyph("support", "badge-glyph")} Поддержка проекта</div>
+                <div class="badge">${glyph("coins", "badge-glyph")} Поддержка проекта</div>
                 <h1><span>Поддержать</span><br>Elysium</h1>
                 <p class="lead">
                   Поддержка помогает оплачивать сервер, хостинг, развитие и техническую часть проекта.
@@ -538,7 +538,7 @@ function accountView() {
                 <section class="account-v2-panel">
                   <div class="account-panel-head"><div><p class="account-kicker">ПОСЛЕДНИЕ СОБЫТИЯ</p><h2>Что происходило с профилем</h2></div><button class="account-text-button" type="button" data-account-open-tab="history">Вся история →</button></div>
                   <div id="accountOverviewEvents" class="account-activity-list"></div>
-                  <div id="accountOverviewEmpty" class="account-activity-empty" hidden>Событий пока нет.</div>
+                  <div id="accountOverviewEmpty" class="account-activity-empty" hidden>История пуста. Новые действия появятся здесь автоматически.</div>
                 </section>
               </section>
 

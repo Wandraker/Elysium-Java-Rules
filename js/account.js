@@ -336,7 +336,11 @@ function renderOverview(payload) {
   list.replaceChildren();
   const events = (payload.events || []).slice(0, 5);
   events.forEach((event) => list.appendChild(createActivityItem(event)));
-  document.getElementById("accountOverviewEmpty").hidden = events.length !== 0;
+  const empty = document.getElementById("accountOverviewEmpty");
+  empty.textContent = payload.preferences?.activityVisible === false
+    ? "Обычные события скрыты настройкой. Откройте «Историю» и включите их."
+    : "История пуста. Новые действия появятся здесь автоматически.";
+  empty.hidden = events.length !== 0;
 }
 
 function renderMinecraft(payload) {
@@ -363,6 +367,9 @@ function renderActivity(payload) {
   list.replaceChildren();
   const events = payload.events || [];
   events.forEach((event) => list.appendChild(createActivityItem(event)));
+  empty.textContent = visible
+    ? "История действий пока пуста."
+    : "Обычные события скрыты. Нажмите кнопку выше, чтобы показать их.";
   empty.hidden = events.length !== 0;
 }
 
