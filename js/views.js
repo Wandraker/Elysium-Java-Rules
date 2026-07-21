@@ -7,7 +7,39 @@
         .replaceAll("'", "&#039;");
     }
 
+    const lucideIcons = Object.freeze({
+      launch: "rocket",
+      rules: "scroll-text",
+      support: "headset",
+      coins: "coins",
+      java: "coffee",
+      chat: "message-circle",
+      store: "store",
+      pulse: "activity",
+      warning: "triangle-alert",
+      owner: "crown",
+      admin: "shield-check",
+      shield: "shield",
+      moderator: "gavel",
+      balance: "scale",
+      system: "workflow",
+      overview: "layout-dashboard",
+      profile: "user-round",
+      sessions: "monitor-smartphone",
+      history: "history",
+      logout: "log-out",
+      block: "ban",
+      media: "image",
+      link: "link"
+    });
+    window.ELYSIUM_LUCIDE_ICONS = lucideIcons;
+
     function glyph(name, extraClass = "") {
+      const icon = lucideIcons[String(name)];
+      const paths = icon ? window.ELYSIUM_LUCIDE_PATHS?.[icon] : "";
+      if (paths) {
+        return `<svg class="ui-glyph ui-glyph-${escapeHTML(name)} ${escapeHTML(extraClass)}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
+      }
       return `<span class="ui-glyph ui-glyph-${escapeHTML(name)} ${escapeHTML(extraClass)}" aria-hidden="true"></span>`;
     }
 
@@ -76,7 +108,7 @@
               <div class="hero-layout">
                 <div class="hero-front">
                   <div class="hero-kicker"><span></span> Игровая сеть Elysium</div>
-                  <h1><span>Твой мир.</span><br>Твои правила.</h1>
+                  <h1><span>Твой мир<i class="hero-period" aria-hidden="true"></i><i class="sr-only">.</i></span><br>Твои правила.</h1>
                   <p class="lead">
                     Современный Minecraft-сервер с единым профилем, защищённым входом
                     и живым сообществом. Подключайся к Java-направлению уже сейчас.
@@ -503,7 +535,7 @@ function accountView() {
               <div id="accountAvatar" class="account-profile-avatar">E</div>
               <div class="account-profile-copy"><p class="account-kicker">ELYSIUM PROFILE</p><h2 id="accountDisplayName">Telegram</h2><p id="accountUsername">Аккаунт Telegram</p><div class="account-profile-trust"><span></span>Защищённый профиль Shield</div></div>
               <div id="accountProfileState" class="account-profile-state">Активен</div>
-              <button id="accountLogoutButton" class="account-logout-button" type="button">${glyph("logout", "account-logout-glyph")}<span>Выйти</span></button>
+              <button id="accountLogoutButton" class="account-logout-button" type="button">${glyph("logout", "account-logout-glyph")}<span class="account-logout-label">Выйти</span></button>
             </article>
 
             <section id="accountBlocked" class="account-blocked account-blocked-compact" hidden>

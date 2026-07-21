@@ -234,6 +234,8 @@ img, svg { display: block; max-width: 100%; }
   -webkit-background-clip: text;
   background-clip: text;
 }
+.hero-front h1 .hero-period { display: inline-block; width: .115em; height: .115em; margin-left: .045em; border-radius: 50%; vertical-align: .045em; background: #fff; box-shadow: 0 0 .08em rgba(255,255,255,.18); }
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
 .lead { max-width: 720px; margin: 0; color: #c1c3d0; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.65; }
 .hero-primary-actions, .start-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
 
@@ -354,7 +356,7 @@ img, svg { display: block; max-width: 100%; }
 .home-card:nth-child(3) .icon, .donate-card:first-child .icon { color: #d7b8ff; }
 .choice.java .icon, .connect-card.java .icon, .donate-card:last-child .icon { color: var(--orange); }
 .icon { width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 14px; display: grid; place-items: center; color: var(--cyan); background: linear-gradient(145deg, rgba(93, 226, 255, .07), rgba(138, 99, 255, .035)); }
-.ui-glyph { position: relative; width: 25px; height: 25px; display: inline-block; flex: 0 0 auto; color: inherit; }
+.ui-glyph { position: relative; width: 25px; height: 25px; display: inline-block; flex: 0 0 auto; color: inherit; overflow: visible; }
 .ui-glyph::before, .ui-glyph::after { content: ""; position: absolute; display: block; }
 .ui-glyph-launch::before { inset: 3px 5px 6px 7px; border: 2px solid currentColor; border-radius: 70% 50% 65% 35%; transform: rotate(42deg); }
 .ui-glyph-launch::after { left: 3px; bottom: 3px; width: 8px; height: 2px; border-radius: 2px; background: currentColor; box-shadow: 3px -4px currentColor; transform: rotate(-43deg); opacity: .72; }
@@ -807,7 +809,7 @@ img, svg { display: block; max-width: 100%; }
   .account-profile-trust { margin-top: 6px; font-size: 8px; }
   .account-profile-state { display: none; }
   .account-logout-button { width: 36px; padding: 0; }
-  .account-logout-button span { display: none; }
+  .account-logout-label { display: none; }
   .account-logout-glyph { margin: 0; transform: scale(.72); }
   .account-blocked-details { grid-template-columns: 1fr; }
   .account-summary-grid { grid-template-columns: 1fr 1fr; }

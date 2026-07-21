@@ -104,6 +104,11 @@ function accountEscape(value) {
 }
 
 function accountGlyph(name, className = "") {
+  const icon = window.ELYSIUM_LUCIDE_ICONS?.[String(name)];
+  const paths = icon ? window.ELYSIUM_LUCIDE_PATHS?.[icon] : "";
+  if (paths) {
+    return `<svg class="ui-glyph ui-glyph-${accountEscape(name)} ${accountEscape(className)}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${paths}</svg>`;
+  }
   return `<span class="ui-glyph ui-glyph-${accountEscape(name)} ${accountEscape(className)}" aria-hidden="true"></span>`;
 }
 
